@@ -76,13 +76,7 @@
         console.log('URL to get attachments : ' +gasUrl);
 
 		//google apps script call to get attachment details
-		//$.ajax({
-			//url: gasUrl,
-			//dataType: 'jsonp',
-      //error: function(jqXHR, textStatus, errorThrown ){
-      //  jQuery('<div>'+'details'+'</div>').appendTo('body');
-      //}
-			//});
+
         
         gadgets.window.adjustHeight(100);
 
@@ -90,7 +84,7 @@
     function init() {
       // Hit the server, passing in a signed request (and OpenSocial ID), to see if we know who the user is.
       osapi.http.get({
-        'href' : 'http://yourserver.com',
+        'href' : google_app_service_url,
         'format' : 'json',
         'authz' : 'signed'
       }).execute(handleLoadResponse);
@@ -131,7 +125,7 @@
         // user closed the popup.
         if (popup.closed) {
           osapi.http.get({
-            'href' : 'http://yourserver.com',
+            'href' : google_app_service_url,
             'format' : 'json',
             'authz' : 'signed'
           }).execute(handleLoadResponse);
@@ -145,6 +139,7 @@
 
           
       </script>
+      <div id="output"></div>
     ]]>
     <form id="myForm"> 
         <h2> <div id='loading'>Loading attachments details... </div></h2>
