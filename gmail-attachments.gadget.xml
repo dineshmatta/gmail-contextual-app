@@ -77,7 +77,7 @@
 		$.ajax({
 			url: gasUrl,
 			dataType: 'jsonp',
-      success: function() {
+      success: function(data) {
         // show results of successfull request
         ('#loading').html('success');
       },
