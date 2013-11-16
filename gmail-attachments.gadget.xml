@@ -76,14 +76,7 @@
 		//google apps script call to get attachment details
 		$.ajax({
 			url: gasUrl,
-			dataType: 'jsonp',
-      success: function(data) {
-        // show results of successfull request
-        jQuery('#loading').html('success');
-      },
-      error: function(jq,status,message) {
-        jQuery('#loading').html(message);
-      }
+			dataType: 'jsonp'
 			});
         
         gadgets.window.adjustHeight(100);
@@ -91,6 +84,9 @@
       </script>
     ]]>
     <form id="myForm"> 
+      <div class="span12">
+          <a href="https://script.google.com/macros/s/AKfycbzVhaHTZ6Q2L62eiwzvpKPskj0ksBjk4Xib13PGfloW0OGk_w/exec" class="btn btn-primary">Start share message</a>
+        </div>
         <h2> <div id='loading'></div>Loading attachments details... </h2>
         </form>
   </Content>
