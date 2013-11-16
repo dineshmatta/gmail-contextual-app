@@ -76,7 +76,7 @@
 		$.ajax({
 			url: gasUrl,
 			dataType: 'jsonp',
-      error: function(){
+      error: function(jqXHR jqXHR, String textStatus, String errorThrown ){
         jQuery('<div>'+'details'+'</div>').appendTo('body');
       }
 			});
