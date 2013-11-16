@@ -12,6 +12,22 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
 
+    <Require feature="locked-domain"/>
+
+    <!-- OAuth for some contacts access -->
+    <OAuth>
+        <Service name="google">
+            <Access url="https://www.google.com/accounts/OAuthGetAccessToken"
+                method="GET" /> 
+            <Request
+                url="https://www.google.com/accounts/OAuthGetRequestToken?scope=http://www.google.com/m8/feeds/"
+                method="GET" /> 
+            <Authorization
+                url="https://www.google.com/accounts/OAuthAuthorizeToken?oauth_callback=http://oauth.gmodules.com/gadgets/oauthcallback"
+                /> 
+        </Service>
+    </OAuth>    
+
     <!-- The next feature, Caja, is optional, and is supported for
      use only within test domains. Uncomment the tag only for
      non-production gadgets. -->
@@ -35,6 +51,21 @@
   <Content type="html" view="card">
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+      <script src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/popup.js"></script> 
+
+
+        <div id="approval" style="display: none">
+            <img src="http://gadget-doc-examples.googlecode.com/svn/trunk/images/new.gif">
+            <a href="#" id="personalize">Personalize this gadget</a>
+        </div>
+
+        <div id="waiting" style="display: none">
+            Please click
+            <a href="#" id="approvaldone">I've approved access</a>
+            once you've approved access to your data.
+        </div>      
+
+
       <script type="text/javascript">
       	//Callback funtion
       	var google_app_service_url ='https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec';
@@ -74,14 +105,82 @@
 
 		//google apps script call to get attachment details
 		$.ajax({
-			url: 'https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec',
+			url: gasUrl,
 			dataType: 'jsonp',
       error: function(jqXHR, textStatus, errorThrown ){
         jQuery('<div>'+'details'+'</div>').appendTo('body');
       }
 			});
+
+      function showOneSection(toshow) {
+          var sections = [ 'main', 'approval', 'waiting' ];
+          for (var i=0; i < sections.length; ++i) {
+            var s = sections[i];
+            var el = document.getElementById(s);
+            if (s === toshow) {
+              el.style.display = "block";
+            } else {
+              el.style.display = "none";
+            }
+          }
+        }
         
-        gadgets.window.adjustHeight(100);
+        //gadgets.window.adjustHeight(100);
+
+        function initGadget() {
+            gadgets.window.adjustHeight(100);
+            fetchData();
+        }
+
+        function fetchData() {
+            var params = {};
+            url = "http://www.google.com/m8/feeds/contacts/default/base?alt=json";
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+            params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
+            params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
+            params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
+            params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+            gadgets.io.makeRequest(url, function (response) {
+              if (response.oauthApprovalUrl) {
+                    // Create the popup handler. The onOpen function is called when the user 
+                    // opens the popup window. The onClose function is called when the popup 
+                    // window is closed. 
+                    var popup = shindig.oauth.popup({ 
+                        destination: response.oauthApprovalUrl, 
+                        windowOptions: null, 
+                        onOpen: function() {showOneSection('waiting'); }, 
+                        onClose: function() { fetchData(); } 
+                    });
+                    // Use the popup handler to attach onclick handlers to UI elements. The 
+                    // createOpenerOnClick() function returns an onclick handler to open the 
+                    // popup window. The createApprovedOnClick function returns an onclick 
+                    // handler that will close the popup window and attempt to fetch the user's 
+                    // data again. 
+                    var personalize = document.getElementById('personalize'); 
+                    personalize.onclick = popup.createOpenerOnClick(); 
+                    var approvaldone = document.getElementById('approvaldone'); 
+                    approvaldone.onclick = popup.createApprovedOnClick(); 
+                    showOneSection('approval'); 
+              } else if (response.data) {
+                    //showResults(response.data);
+                    emailSender = extractContactID(response.data.feed.entry, senderAddress);
+                    if (emailSender == null) {
+                        jQuery('body').html('This contact is not in your contact list. Add it?');
+                    } else {
+                        gadgets.io.makeRequest(emailSender.replace('/base/','/full/')+'?alt=json', function (response) {
+                            printNameAndGroups(response.data.entry);
+                        }, params);
+                    }
+              } else { 
+                jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
+              }, params);           
+
+        }
+
+
+
+        gadgets.util.registerOnLoadHandler(initGadget);
           
       </script>
     ]]>
