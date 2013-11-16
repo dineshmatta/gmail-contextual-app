@@ -61,11 +61,11 @@
         var messageid='141cbb6f2faac939';
         for(var match in matches) {
             for(var key in matches[match]) {
-                if(key == 'message_id') {
+                //if(key == 'message_id') {
                 	//Stores the message id from the email thread
                     messageid = matches[match][key];
                     console.log('found messageid : '+messageid);
-                }
+                //}
             }
         }
         
@@ -76,10 +76,7 @@
 		//google apps script call to get attachment details
 		$.ajax({
 			url: gasUrl,
-			dataType: 'jsonp',
-      success: function(data){
-        alert(data);
-      }
+			dataType: 'jsonp'
 			});
         
         gadgets.window.adjustHeight(100);
