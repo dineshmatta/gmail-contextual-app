@@ -137,7 +137,7 @@
 
         function fetchData() {
             var params = {};
-            url = "http://www.google.com/m8/feeds/contacts/default/base?alt=json";
+            url = "https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec";
             params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
             params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
             params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
