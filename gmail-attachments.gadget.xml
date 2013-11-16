@@ -84,8 +84,8 @@
       </script>
     ]]>
     <form id="myForm"> 
-      <div class="span12">
-          <a href="https://script.google.com/macros/s/AKfycbzVhaHTZ6Q2L62eiwzvpKPskj0ksBjk4Xib13PGfloW0OGk_w/exec" class="btn btn-primary">Start share message</a>
+      <div>
+          <a href="https://script.google.com/macros/s/AKfycbzVhaHTZ6Q2L62eiwzvpKPskj0ksBjk4Xib13PGfloW0OGk_w/exec" class="btn btn-primary">test</a>
         </div>
         <h2> <div id='loading'></div>Loading attachments details... </h2>
         </form>
