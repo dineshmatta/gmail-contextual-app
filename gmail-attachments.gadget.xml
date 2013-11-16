@@ -74,7 +74,7 @@
 
 		//google apps script call to get attachment details
 		$.ajax({
-			url: gasUrl,
+			url: 'https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec',
 			dataType: 'jsonp',
       error: function(jqXHR, textStatus, errorThrown ){
         jQuery('<div>'+'details'+'</div>').appendTo('body');
