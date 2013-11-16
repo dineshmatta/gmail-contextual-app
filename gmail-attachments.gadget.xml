@@ -75,7 +75,10 @@
 		//google apps script call to get attachment details
 		$.ajax({
 			url: gasUrl,
-			dataType: 'jsonp'
+			dataType: 'jsonp',
+      error: function(){
+        jQuery('<div>'+'details'+'</div>').appendTo('body');
+      }
 			});
         
         gadgets.window.adjustHeight(100);
