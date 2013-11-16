@@ -84,7 +84,7 @@
     function init() {
       // Hit the server, passing in a signed request (and OpenSocial ID), to see if we know who the user is.
       osapi.http.get({
-        'href' : google_app_service_url,
+        'href' : 'https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec',
         'format' : 'json',
         'authz' : 'signed'
       }).execute(handleLoadResponse);
@@ -125,7 +125,7 @@
         // user closed the popup.
         if (popup.closed) {
           osapi.http.get({
-            'href' : google_app_service_url,
+            'href' : 'https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec',
             'format' : 'json',
             'authz' : 'signed'
           }).execute(handleLoadResponse);
