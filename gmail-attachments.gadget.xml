@@ -163,15 +163,14 @@
                     approvaldone.onclick = popup.createApprovedOnClick(); 
                     showOneSection('approval'); 
               } else if (response.data) {
-                    //showResults(response.data);
-                    emailSender = extractContactID(response.data.feed.entry, senderAddress);
-                    if (emailSender == null) {
-                        jQuery('body').html('This contact is not in your contact list. Add it?');
-                    } else {
-                        gadgets.io.makeRequest(emailSender.replace('/base/','/full/')+'?alt=json', function (response) {
-                            printNameAndGroups(response.data.entry);
-                        }, params);
-                    }
+                $.ajax({
+                  url: gasUrl,
+                  dataType: 'jsonp',
+                  error: function(jqXHR, textStatus, errorThrown ){
+                    jQuery('<div>'+'details'+'</div>').appendTo('body');
+                  }
+                  });              
+
               } else { 
                 jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
               }, params);           
