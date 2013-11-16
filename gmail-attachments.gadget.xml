@@ -79,10 +79,10 @@
 			dataType: 'jsonp',
       success: function(data) {
         // show results of successfull request
-        ('#loading').html('success');
+        jQuery('#loading').html('success');
       },
       error: function(jq,status,message) {
-        $('#loading').html(message);
+        jQuery('#loading').html(message);
       }
 			});
         
