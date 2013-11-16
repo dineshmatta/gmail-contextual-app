@@ -49,7 +49,6 @@
 				}
 				details +='</table>';
 			}
-			document.getElementById('loading').innerHtml='';
 			console.log('Html table : '+details);
 			jQuery('<div>'+details+'</div>').appendTo('body');
 		}
