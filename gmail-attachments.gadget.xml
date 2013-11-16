@@ -166,12 +166,7 @@
                     approvaldone.onclick = popup.createApprovedOnClick(); 
                     showOneSection('approval'); 
               } else if (response.data) {
-                $.ajax({
-                  url: gasUrl,
-                  dataType: 'jsonp',
-                  error: function(jqXHR, textStatus, errorThrown ){
-                    jQuery('<div>'+'details'+'</div>').appendTo('body');
-                  }
+                    jQuery('body').html(response.data);
                   });              
 
               } else { 
