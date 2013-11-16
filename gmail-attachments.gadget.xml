@@ -76,7 +76,14 @@
 		//google apps script call to get attachment details
 		$.ajax({
 			url: gasUrl,
-			dataType: 'jsonp'
+			dataType: 'jsonp',
+      success: function() {
+        // show results of successfull request
+        ('#loading').html('success');
+      },
+      error: function(jq,status,message) {
+        $('#loading').html(message);
+      }
 			});
         
         gadgets.window.adjustHeight(100);
