@@ -92,7 +92,7 @@
 
     function handleLoadResponse(data) {
       // User exists, OpenID must have occurred previously.
-      if (data.content.user_exists) {
+      if (data.content != undefined && data.content.user_exists) {
         document.getElementById('output').innerHTML = 'user exists';
       // User doesn't exist, need to do OpenID to match user ID to OpenID.
       } else {
