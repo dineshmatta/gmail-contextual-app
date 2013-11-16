@@ -12,6 +12,9 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
 
+    <Require feature="opensocial-0.9" />
+    <Require feature="osapi" />
+
     <!-- The next feature, Caja, is optional, and is supported for
      use only within test domains. Uncomment the tag only for
      non-production gadgets. -->
@@ -32,7 +35,7 @@
 
   <!-- Define the content type and display location. The settings
    "html" and "card" are required for all Gmail contextual gadgets. -->
-  <Content type="html" view="card">
+  <Content type="html" view="card,home,canvas,profile">
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
