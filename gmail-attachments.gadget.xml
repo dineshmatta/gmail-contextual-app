@@ -54,6 +54,9 @@
       <script src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/popup.js"></script> 
 
 
+        <div id="main" style="display: none">
+        </div>
+
         <div id="approval" style="display: none">
             <img src="http://gadget-doc-examples.googlecode.com/svn/trunk/images/new.gif">
             <a href="#" id="personalize">Personalize this gadget</a>
@@ -63,7 +66,7 @@
             Please click
             <a href="#" id="approvaldone">I've approved access</a>
             once you've approved access to your data.
-        </div>      
+        </div>     
 
 
       <script type="text/javascript">
