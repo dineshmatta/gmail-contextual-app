@@ -12,22 +12,6 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
 
-    <Require feature="locked-domain"/>
-
-    <!-- OAuth for some contacts access -->
-    <OAuth>
-        <Service name="google">
-            <Access url="https://www.google.com/accounts/OAuthGetAccessToken"
-                method="GET" /> 
-            <Request
-                url="https://www.google.com/accounts/OAuthGetRequestToken?scope=http://www.google.com/m8/feeds/"
-                method="GET" /> 
-            <Authorization
-                url="https://www.google.com/accounts/OAuthAuthorizeToken?oauth_callback=http://oauth.gmodules.com/gadgets/oauthcallback"
-                /> 
-        </Service>
-    </OAuth>    
-
     <!-- The next feature, Caja, is optional, and is supported for
      use only within test domains. Uncomment the tag only for
      non-production gadgets. -->
@@ -51,51 +35,34 @@
   <Content type="html" view="card">
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
-      <script src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/popup.js"></script> 
-
-
-        <div id="main" style="display: none">
-        </div>
-
-        <div id="approval" style="display: none">
-            <img src="http://gadget-doc-examples.googlecode.com/svn/trunk/images/new.gif">
-            <a href="#" id="personalize">Personalize this gadget</a>
-        </div>
-
-        <div id="waiting" style="display: none">
-            Please click
-            <a href="#" id="approvaldone">I've approved access</a>
-            once you've approved access to your data.
-        </div>     
-
-
       <script type="text/javascript">
-      	//Callback funtion
-      	var google_app_service_url ='https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec';
-      	
+        //Callback funtion
+        var google_app_service_url ='https://script.google.com/a/macros/sativ.mygbiz.com/s/AKfycby-UmkTJ4KDDcTFZBsgoeAqDwyrNPdniOz8C45O_NPL/dev';
+        
         window.jsonCallback = function(attachmentDetails){
-			console.log('jsonCallback table : '+attachmentDetails);
-			var details ='<h2>No attacments found!!<h2>';
-			if(attachmentDetails!=null && attachmentDetails.length>0){
-				details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
-				for (var i = 0; i < attachmentDetails.length; i++) {
-					details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
-				}
-				details +='</table>';
-			}
-			console.log('Html table : '+details);
-			jQuery('<div>'+details+'</div>').appendTo('body');
-		}
+      console.log('jsonCallback table : '+attachmentDetails);
+      var details ='<h2>No attacments found!!<h2>';
+      if(attachmentDetails!=null && attachmentDetails.length>0){
+        details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
+        for (var i = 0; i < attachmentDetails.length; i++) {
+          details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
+        }
+        details +='</table>';
+      }
+      document.getElementById('loading').innerHtml='';
+      console.log('Html table : '+details);
+      jQuery('<div>'+details+'</div>').appendTo('body');
+    }
 
         matches = google.contentmatch.getContentMatches();
         
         console.log('JSON.stringify(matches) response : ' +JSON.stringify(matches));
         console.log(' matches : ' +matches);
-        var messageid='141eb26bfe94e733';
+        var messageid='141cbb6f2faac939';
         for(var match in matches) {
             for(var key in matches[match]) {
                 if(key == 'message_id') {
-                	//Stores the message id from the email thread
+                  //Stores the message id from the email thread
                     messageid = matches[match][key];
                     console.log('found messageid : '+messageid);
                 }
@@ -106,84 +73,18 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
-		//google apps script call to get attachment details
-		$.ajax({
-			url: gasUrl,
-			dataType: 'jsonp',
-      error: function(jqXHR, textStatus, errorThrown ){
-        jQuery('<div>'+'details'+'</div>').appendTo('body');
-      }
-			});
-
-      function showOneSection(toshow) {
-          var sections = [ 'main', 'approval', 'waiting' ];
-          for (var i=0; i < sections.length; ++i) {
-            var s = sections[i];
-            var el = document.getElementById(s);
-            if (s === toshow) {
-              el.style.display = "block";
-            } else {
-              el.style.display = "none";
-            }
-          }
-        }
+    //google apps script call to get attachment details
+    $.ajax({
+      url: gasUrl,
+      dataType: 'jsonp'
+      });
         
-        //gadgets.window.adjustHeight(100);
-
-        function initGadget() {
-            gadgets.window.adjustHeight(100);
-            fetchData();
-        }
-
-        function fetchData() {
-            var params = {};
-            url = "https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec";
-            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-            params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
-            params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
-            params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
-            params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-
-            gadgets.io.makeRequest(url, function (response) {
-              if (response.oauthApprovalUrl) {
-                    // Create the popup handler. The onOpen function is called when the user 
-                    // opens the popup window. The onClose function is called when the popup 
-                    // window is closed. 
-                    var popup = shindig.oauth.popup({ 
-                        destination: response.oauthApprovalUrl, 
-                        windowOptions: null, 
-                        onOpen: function() {showOneSection('waiting'); }, 
-                        onClose: function() { fetchData(); } 
-                    });
-                    // Use the popup handler to attach onclick handlers to UI elements. The 
-                    // createOpenerOnClick() function returns an onclick handler to open the 
-                    // popup window. The createApprovedOnClick function returns an onclick 
-                    // handler that will close the popup window and attempt to fetch the user's 
-                    // data again. 
-                    var personalize = document.getElementById('personalize'); 
-                    personalize.onclick = popup.createOpenerOnClick(); 
-                    var approvaldone = document.getElementById('approvaldone'); 
-                    approvaldone.onclick = popup.createApprovedOnClick(); 
-                    showOneSection('approval'); 
-              } else if (response.data) {
-                    jQuery('body').html(response.data);                              
-
-              } else { 
-                jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
-              }
-              }, params);           
-
-        }
-
-
-
-        gadgets.util.registerOnLoadHandler(initGadget);
+        gadgets.window.adjustHeight(100);
           
       </script>
     ]]>
     <form id="myForm"> 
-        <h2> <div id='loading'>Loading attachments details... </div></h2>
+        <h2> <div id='loading'></div>Loading attachments details... </h2>
         </form>
   </Content>
 </Module>
-
