@@ -153,4 +153,3 @@ shindig.oauth.popup = function(options) {
     createApprovedOnClick: createApprovedOnClick
   };
 };
-
