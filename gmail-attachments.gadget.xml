@@ -70,7 +70,7 @@
         }
         
         console.log('JSON response : ' +JSON.stringify(matches));
-        var gasUrl = google_app_service_url+'?messageId='+messageid';
+        var gasUrl = google_app_service_url+'?messageId='+messageid;
         console.log('URL to get attachments : ' +gasUrl);
 
 		//google apps script call to get attachment details
