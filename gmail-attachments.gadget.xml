@@ -116,7 +116,7 @@
           url = "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec";
 
           //params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-          params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
+          //params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
 
           //params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
           //params[gadgets.io.RequestParameters.OAUTH_USE_TOKEN] = "always";
