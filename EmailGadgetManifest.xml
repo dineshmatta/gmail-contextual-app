@@ -54,7 +54,7 @@
 <!-- GADGET -->
 <Extension id="ExtractorTestGadget" type="gadget">
   <Name>Gmail attachments gadget</Name>
-  <Url>http://restservicetogeneratezipfile.herokuapp.com/gmail-attachments.gadget.xml</Url>
+  <Url>https://raw.github.com/dineshmatta/gmail-contextual-app/master/gmail-attachments.gadget.xml</Url>
   <Container name="mail"/>
   <!--<Param name="caja" value="enabled" />-->
 </Extension>
