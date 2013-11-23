@@ -125,7 +125,10 @@
           gadgets.io.makeRequest(url, function (response) {
             if (response.oauthApprovalUrl) {
             var main = document.getElementById('main');
-            main.appendChild(response.oauthApprovalUrl);
+                    var err = document.createTextNode('OAuth error: ' +
+                  response.oauthApprovalUrl);
+                main.appendChild(err);
+            
               // Create the popup handler. The onOpen function is called when the user
               // opens the popup window. The onClose function is called when the popup
               // window is closed.
