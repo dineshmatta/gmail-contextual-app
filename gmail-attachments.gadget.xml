@@ -154,17 +154,17 @@
                 var main = document.getElementById('main');
 
                 $.ajax({
-          url: "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec",
-          dataType: 'jsonp',
-            success: function(data){
-              var err = document.createTextNode('OAuth error22: ' + data);
-              main.appendChild(err);
-            },
-            error: funcion(jqXHR, textStatus, errorThrown){
-              var err = document.createTextNode('OAuth error11: ' + errorThrown);
-              main.appendChild(err);
-            }
-          });
+                  url: "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec",
+                  dataType: 'jsonp',
+                  success: function(data){
+                    var err = document.createTextNode('OAuth error22: ' + data);
+                    main.appendChild(err);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    var err = document.createTextNode('OAuth error11: ' + errorThrown);
+                    main.appendChild(err);
+                  }
+                });
                 gadgets.window.adjustHeight(100);
 
                 //showResults(response.data);
