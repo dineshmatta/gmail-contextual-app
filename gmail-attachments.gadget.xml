@@ -97,11 +97,11 @@
           }
         }
 
-      // Process returned JSON feed to display data.
-      function showResults(result) {
-        showOneSection('main');
-        main();
-      }
+        // Process returned JSON feed to display data.
+        function showResults(result) {
+          showOneSection('main');
+          main();
+        }
 
         // Invoke makeRequest() to fetch data from the service provider endpoint.
         // Depending on the results of makeRequest, decide which version of the UI
@@ -150,6 +150,12 @@
               showOneSection('approval');
             } else if (response.data) {
                 showOneSection('main');
+
+            var main = document.getElementById('main');
+                    var err = document.createTextNode('OAuth error: ' +
+                  response.data);
+                main.appendChild(err);
+                                
                 showResults(response.data);
             } else {
                 // The response.oauthError and response.oauthErrorText values may help debug
