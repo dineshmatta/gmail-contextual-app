@@ -150,7 +150,7 @@
               showOneSection('approval');
             } else if (response.data) {
                 showOneSection('main');
-
+                gadgets.window.adjustHeight(100);
             var main = document.getElementById('main');
                     var err = document.createTextNode('OAuth error: ' +
                   response.data);
