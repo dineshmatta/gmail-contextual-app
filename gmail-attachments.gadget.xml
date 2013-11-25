@@ -78,6 +78,7 @@
      // url: gasUrl,
       //dataType: 'jsonp'
       //});
+      $('<div>'+'testtttttttt'+'</div>').appendTo('body');
 
         $.ajax({
           url: gasUrl,
