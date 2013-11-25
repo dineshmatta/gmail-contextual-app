@@ -11,17 +11,6 @@
 
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
-    <Require feature="locked-domain"/>
-
-    <OAuth>
-      <Service name="google">
-        <Access url="https://www.google.com/accounts/OAuthGetAccessToken" method="GET" />
-        <Request url="https://www.google.com/accounts/OAuthGetRequestToken?
-                      scope=https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec" method="GET" />
-        <Authorization url="https://www.google.com/accounts/OAuthAuthorizeToken?
-                            oauth_callback=http://oauth.gmodules.com/gadgets/oauthcallback" />
-      </Service>
-    </OAuth>
 
     <!-- The next feature, Caja, is optional, and is supported for
      use only within test domains. Uncomment the tag only for
@@ -46,193 +35,64 @@
   <Content type="html" view="card">
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
-      <script src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/popup.js"></script>
-      <style>
-        #main {
-          margin: 0px;
-          padding: 0px;
-          font-size: small;
-        }
-      </style>
-
-      <div id="main" style="display: none">
-      </div>
-
-      <div id="approval" style="display: none">
-        <img src="http://gadget-doc-examples.googlecode.com/svn/trunk/images/new.gif">
-        <a href="#" id="personalize">Personalize this gadget</a>
-      </div>
-
-      <div id="waiting" style="display: none">
-        Please click
-        <a href="#" id="approvaldone">I've approved access</a>
-        once you've approved access to your data.
-      </div>
-
       <script type="text/javascript">
-
-        // Display UI depending on OAuth access state of the gadget (see <divs> above).
-        // If user hasn't approved access to data, provide a "Personalize this gadget" link
-        // that contains the oauthApprovalUrl returned from makeRequest.
-        //
-        // If the user has opened the popup window but hasn't yet approved access, display
-        // text prompting the user to confirm that s/he approved access to data.  The user
-        // may not ever need to click this link, if the gadget is able to automatically
-        // detect when the user has approved access, but showing the link gives users
-        // an option to fetch their data even if the automatic detection fails.
-        //
-        // When the user confirms access, the fetchData() function is invoked again to
-        // obtain and display the user's data.
-
-        function showOneSection(toshow) {
-          var sections = [ 'main', 'approval', 'waiting' ];
-          for (var i=0; i < sections.length; ++i) {
-            var s = sections[i];
-            var el = document.getElementById(s);
-            if (s === toshow) {
-              el.style.display = "block";
-            } else {
-              el.style.display = "none";
-            }
-          }
+        //Callback funtion
+        var google_app_service_url ='https://script.google.com/a/macros/sativ.mygbiz.com/s/AKfycby-UmkTJ4KDDcTFZBsgoeAqDwyrNPdniOz8C45O_NPL/dev';
+        
+        window.jsonCallback = function(attachmentDetails){
+      console.log('jsonCallback table : '+attachmentDetails);
+      var details ='<h2>No attacments found!!<h2>';
+      if(attachmentDetails!=null && attachmentDetails.length>0){
+        details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
+        for (var i = 0; i < attachmentDetails.length; i++) {
+          details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
         }
+        details +='</table>';
+      }
+      document.getElementById('loading').innerHtml='';
+      console.log('Html table : '+details);
+      jQuery('<div>'+details+'</div>').appendTo('body');
+    }
 
-        // Process returned JSON feed to display data.
-        function showResults(result) {
-          showOneSection('main');
-          main();
-        }
-
-        // Invoke makeRequest() to fetch data from the service provider endpoint.
-        // Depending on the results of makeRequest, decide which version of the UI
-        // to ask showOneSection() to display. If user has approved access to his
-        // or her data, display data.
-        // If the user hasn't approved access yet, response.oauthApprovalUrl contains a
-        // URL that includes a Google-supplied request token. This is presented in the
-        // gadget as a link that the user clicks to begin the approval process.
-        function fetchData() {
-          var params = {};
-          //url = "http://www.google.com/m8/feeds/contacts/default/base?alt=json";
-          url = "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec";
-
-          //params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-          //params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
-
-          //params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
-          //params[gadgets.io.RequestParameters.OAUTH_USE_TOKEN] = "always";
-          //params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-
-          gadgets.io.makeRequest(url, function (response) {
-            if (response.oauthApprovalUrl) {
-            var main = document.getElementById('main');
-                    var err = document.createTextNode('OAuth error: ' +
-                  response.oauthApprovalUrl);
-                main.appendChild(err);
-            
-              // Create the popup handler. The onOpen function is called when the user
-              // opens the popup window. The onClose function is called when the popup
-              // window is closed.
-              var popup = shindig.oauth.popup({
-                destination: response.oauthApprovalUrl,
-                windowOptions: null,
-                onOpen: function() { showOneSection('waiting'); },
-                onClose: function() { fetchData(); }
-              });
-              // Use the popup handler to attach onclick handlers to UI elements.  The
-              // createOpenerOnClick() function returns an onclick handler to open the
-              // popup window.  The createApprovedOnClick function returns an onclick
-              // handler that will close the popup window and attempt to fetch the user's
-              // data again.
-              var personalize = document.getElementById('personalize');
-              personalize.onclick = popup.createOpenerOnClick();
-              var approvaldone = document.getElementById('approvaldone');
-              approvaldone.onclick = popup.createApprovedOnClick();
-              showOneSection('approval');
-            } else if (response.data) {
-
-                window.jsonCallback = function(attachmentDetails){
+        matches = google.contentmatch.getContentMatches();
+        
+        console.log('JSON.stringify(matches) response : ' +JSON.stringify(matches));
+        console.log(' matches : ' +matches);
+        var messageid='141cbb6f2faac939';
+        for(var match in matches) {
+            for(var key in matches[match]) {
+                if(key == 'message_id') {
+                  //Stores the message id from the email thread
+                    messageid = matches[match][key];
+                    console.log('found messageid : '+messageid);
                 }
-                showOneSection('main');
+            }
+        }
+        
+        console.log('JSON response : ' +JSON.stringify(matches));
+        var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
+        console.log('URL to get attachments : ' +gasUrl);
 
-                var main = document.getElementById('main');
+    //google apps script call to get attachment details
+   // $.ajax({
+     // url: gasUrl,
+      //dataType: 'jsonp'
+      //});
 
                 $.ajax({
-                  url: "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec&callback=jsonCallback",
+                  url: gasUrl,
                   dataType: 'jsonp',
                   success: function(data){
                     var err = document.createTextNode('OAuth error22: ' + data);
-                    main.appendChild(err);
+                    jQuery('<div>'+err+'</div>').appendTo('body');
                   },
                   error: function(jqXHR, textStatus, errorThrown){
                     var err = document.createTextNode('OAuth error11: ' + errorThrown);
-                    main.appendChild(err);
+                    jQuery('<div>'+err+'</div>').appendTo('body');
                   }
                 });
-                gadgets.window.adjustHeight(100);
-
-                //showResults(response.data);
-            } else {
-                // The response.oauthError and response.oauthErrorText values may help debug
-                // problems with your gadget.
-                var main = document.getElementById('main');
-                var err = document.createTextNode('OAuth error: ' +
-                  response.oauthError + ': ' + response.oauthErrorText);
-                main.appendChild(err);
-                showOneSection('main');
-            }
-          }, params);
-        }
-        // Call fetchData() when gadget loads.
-        gadgets.util.registerOnLoadHandler(fetchData);
-
-
-      function main() {
-
-      	//Callback funtion
-      	var google_app_service_url ='https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec';
-      	
-          window.jsonCallback = function(attachmentDetails){
-  			   console.log('jsonCallback table : '+attachmentDetails);
-  			   var details ='<h2>No attacments found!!<h2>';
-    			if(attachmentDetails!=null && attachmentDetails.length>0){
-    				details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
-    				for (var i = 0; i < attachmentDetails.length; i++) {
-    					details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
-    				}
-    				details +='</table>';
-    			}
-      			document.getElementById('loading').innerHtml='';
-      			console.log('Html table : '+details);
-      			jQuery('<div>'+details+'</div>').appendTo('body');
-      		}
-
-          matches = google.contentmatch.getContentMatches();
-          
-          console.log('JSON.stringify(matches) response : ' +JSON.stringify(matches));
-          console.log(' matches : ' +matches);
-          var messageid='141cbb6f2faac939';
-          for(var match in matches) {
-              for(var key in matches[match]) {
-                  if(key == 'message_id') {
-                  	//Stores the message id from the email thread
-                      messageid = matches[match][key];
-                      console.log('found messageid : '+messageid);
-                  }
-              }
-          }
-        
-          console.log('JSON response : ' +JSON.stringify(matches));
-          var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
-          console.log('URL to get attachments : ' +gasUrl);
-
-    		//google apps script call to get attachment details
-    		$.ajax({
-    			url: gasUrl,
-    			dataType: 'jsonp'
-    			});
         
         gadgets.window.adjustHeight(100);
-      }
           
       </script>
     ]]>
@@ -241,4 +101,3 @@
         </form>
   </Content>
 </Module>
-
