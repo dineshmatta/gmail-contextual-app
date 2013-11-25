@@ -74,10 +74,14 @@
         console.log('URL to get attachments : ' +gasUrl);
 
     //google apps script call to get attachment details
-   // $.ajax({
-     // url: gasUrl,
-      //dataType: 'jsonp'
-      //});
+   $.ajax({
+      url: "http://google.com",
+      dataType: 'jsonp',
+      success: function(data){
+            var err = document.createTextNode('OAuth error3322: ' + data);
+            $('<div>'+err+'</div>').appendTo('body');
+          }
+      });
 
         $.ajax({
           url: gasUrl,
