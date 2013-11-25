@@ -74,10 +74,6 @@
         console.log('URL to get attachments : ' +gasUrl);
 
     //google apps script call to get attachment details
-   // $.ajax({
-     // url: gasUrl,
-      //dataType: 'jsonp'
-      //});
 
 
         
