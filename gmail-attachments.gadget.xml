@@ -84,12 +84,10 @@
           url: gasUrl,
           dataType: 'jsonp',
           success: function(data){
-            var err = document.createTextNode('OAuth error22: ' + data);
-            $('<div>'+err+'</div>').appendTo('body');
+            $('<div>'+data+'</div>').appendTo('body');
           },
           error: function(jqXHR, textStatus, errorThrown){
-            var err = document.createTextNode('OAuth error11: ' + errorThrown);
-            $('<div>'+err+'</div>').appendTo('body');
+            $('<div>'+errorThrown+'</div>').appendTo('body');
           }
         });
         
