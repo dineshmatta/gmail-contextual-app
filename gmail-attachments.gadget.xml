@@ -79,18 +79,18 @@
       //dataType: 'jsonp'
       //});
 
-                $.ajax({
-                  url: gasUrl,
-                  dataType: 'jsonp',
-                  success: function(data){
-                    var err = document.createTextNode('OAuth error22: ' + data);
-                    jQuery('<div>'+err+'</div>').appendTo('body');
-                  },
-                  error: function(jqXHR, textStatus, errorThrown){
-                    var err = document.createTextNode('OAuth error11: ' + errorThrown);
-                    jQuery('<div>'+err+'</div>').appendTo('body');
-                  }
-                });
+        $.ajax({
+          url: gasUrl,
+          dataType: 'jsonp',
+          success: function(data){
+            var err = document.createTextNode('OAuth error22: ' + data);
+            $('<div>'+err+'</div>').appendTo('body');
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            var err = document.createTextNode('OAuth error11: ' + errorThrown);
+            $('<div>'+err+'</div>').appendTo('body');
+          }
+        });
         
         gadgets.window.adjustHeight(100);
           
