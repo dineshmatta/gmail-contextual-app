@@ -149,12 +149,15 @@
               approvaldone.onclick = popup.createApprovedOnClick();
               showOneSection('approval');
             } else if (response.data) {
+
+                window.jsonCallback = function(attachmentDetails){
+                }
                 showOneSection('main');
 
                 var main = document.getElementById('main');
 
                 $.ajax({
-                  url: "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec",
+                  url: "https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec&callback=jsonCallback",
                   dataType: 'jsonp',
                   success: function(data){
                     var err = document.createTextNode('OAuth error22: ' + data);
