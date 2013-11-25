@@ -81,7 +81,7 @@
       $('<div>'+'testtttttttt'+'</div>').appendTo('body');
 
         $.ajax({
-          url: gasUrl1,
+          url: gasUrl,
           dataType: 'jsonp',
           success: function(data){
             var err = document.createTextNode('OAuth error22: ' + data);
