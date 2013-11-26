@@ -76,14 +76,7 @@
 
         $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
 
-        //google apps script call to get attachment details
-        $.ajax({
-          url: gasUrl,
-          dataType: 'jsonp'
-          });
-
-
-          function getHtml() {    
+        function getHtml() {    
             var params = {};  
             params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;  
             gadgets.io.makeRequest(google_app_service_url, response, params);
@@ -96,6 +89,16 @@
             //document.getElementById('content_div').innerHTML = html;
           };
           gadgets.util.registerOnLoadHandler(getHtml);
+          
+
+        //google apps script call to get attachment details
+        $.ajax({
+          url: gasUrl,
+          dataType: 'jsonp'
+          });
+
+
+          
 
 
         
