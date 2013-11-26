@@ -39,6 +39,7 @@
 
         $("#reload_link").click(function () {
           loadScript();
+          return false;
         });
 
         //Callback funtion
