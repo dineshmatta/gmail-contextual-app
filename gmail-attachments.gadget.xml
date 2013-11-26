@@ -36,12 +36,6 @@
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
-
-        $("#reload_link").click(function () {
-          loadScript();
-          return false;
-        });
-
         //Callback funtion
         var google_app_service_url ='https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec';
         
@@ -54,22 +48,18 @@
           details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
         }
         details +='</table>';
-        
-      } else {
-        $('No data').appendTo('body');
+        jQuery("a#auth_class").remove();
       }
-      //document.getElementById('loading').innerHtml='';
+      document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
-
-      function loadScript(){
 
         matches = google.contentmatch.getContentMatches();
         
         console.log('JSON.stringify(matches) response : ' +JSON.stringify(matches));
         console.log(' matches : ' +matches);
-        var messageid='14284b7f1cd75004';
+        var messageid='141cbb6f2faac939';
         for(var match in matches) {
             for(var key in matches[match]) {
                 if(key == 'message_id') {
@@ -84,32 +74,13 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
+        $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
 
-            try{
-            $.ajax({
-              url: gasUrl,
-              dataType: 'jsonp'
-            });
-            }
-            catch(err){
-              $('<div>'+err+'</div>').appendTo('body');
-            }
-
-      }
-
-
-      
-    //google apps script call to get attachment details
-    loadScript();
-
-      $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
-      $("<br/>").appendTo('body');
-
-      $('<a href="'+google_app_service_url+'" id="reload_link">Reload</a>').appendTo('body');
-
-
-
-        
+        //google apps script call to get attachment details
+        $.ajax({
+          url: gasUrl,
+          dataType: 'jsonp'
+          });
 
 
         
@@ -118,7 +89,7 @@
       </script>
     ]]>
     <form id="myForm"> 
-        <h2> <div id='loading'></div>Loading attachments details... </h2>
-        </form>
+        <h2> <div id='loading'>Loading attachments details... <img src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/loading.gif" /></div></h2>
+    </form>
   </Content>
 </Module>
