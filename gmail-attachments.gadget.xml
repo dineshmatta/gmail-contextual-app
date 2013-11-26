@@ -89,7 +89,7 @@
       </script>
     ]]>
     <form id="myForm"> 
-        <h2> <div id='loading'>Loading attachments details... </div></h2>
-    </form>
+        <h2> <div id='loading'></div>Loading attachments details... </h2>
+        </form>
   </Content>
 </Module>
