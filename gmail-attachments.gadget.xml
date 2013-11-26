@@ -78,9 +78,12 @@
       try{
         $.ajax({
           url: gasUrl,
-          dataType: 'jsonp'
+          dataType: 'jsonp',
+          success: function(data){
+            $('<div>'+'nnnnnnnnnnnnnn'+'</div>').appendTo('body');
+          }
         });
-        $('<div>'+'vvvvvvvvvv'+'</div>').appendTo('body');
+        
       } catch(err){
       $('<div>'+'ttttttttttttt'+'</div>').appendTo('body');
         $('<div>'+err+'</div>').appendTo('body');
