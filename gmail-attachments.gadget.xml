@@ -89,7 +89,7 @@
       </script>
     ]]>
     <form id="myForm"> 
-        <h2> <div id='loading'>Loading attachments details... <img src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/loading.gif" /></div></h2>
+        <h2> <div id='loading'>Loading attachments details... <img src="https://raw.github.com/dineshmatta/gmail-contextual-app/master/loading.gif" alt="Loading Image"></div></h2>
     </form>
   </Content>
 </Module>
