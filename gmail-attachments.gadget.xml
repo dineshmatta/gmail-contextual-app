@@ -38,7 +38,6 @@
       <script type="text/javascript">
 
         $("#reload_link").click(function () {
-          prepareUrl();
           loadScript();
           return false;
         });
@@ -65,7 +64,7 @@
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
 
-      function prepareUrl(){
+      function loadScript(){
 
         matches = google.contentmatch.getContentMatches();
         
@@ -86,22 +85,8 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
-      }
 
-
-      prepareUrl();
-    //google apps script call to get attachment details
-
-      $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
-      $("<br/>").appendTo('body');
-
-      $('<a href="'+google_app_service_url+'" id="reload_link">Reload</a>').appendTo('body');
-
-      loadScript();
-
-
-        function loadScript(){
-          try{
+            try{
             $.ajax({
               url: gasUrl,
               dataType: 'jsonp'
@@ -110,7 +95,22 @@
             catch(err){
               $('<div>'+err+'</div>').appendTo('body');
             }
-        }
+
+      }
+
+
+      
+    //google apps script call to get attachment details
+    loadScript();
+
+      $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
+      $("<br/>").appendTo('body');
+
+      $('<a href="'+google_app_service_url+'" id="reload_link">Reload</a>').appendTo('body');
+
+
+
+        
 
 
         
