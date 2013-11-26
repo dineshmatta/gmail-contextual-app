@@ -97,6 +97,7 @@
               url: gasUrl,
               dataType: 'jsonp'
             });
+            }
             catch(err){
               $('<div>'+error+'</div>').appendTo('body');
             }
