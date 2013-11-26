@@ -83,7 +83,7 @@
     //google apps script call to get attachment details
 
       $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
-      $("\n\n").appendTo('body');
+      $("<br/>").appendTo('body');
 
       $('<a href="'+google_app_service_url+'" target="_blank" id="reload_link">Reload</a>').appendTo('body');
 
