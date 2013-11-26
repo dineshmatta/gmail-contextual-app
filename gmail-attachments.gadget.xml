@@ -74,23 +74,18 @@
         console.log('URL to get attachments : ' +gasUrl);
 
     //google apps script call to get attachment details
-   // $.ajax({
-     // url: gasUrl,
-      //dataType: 'jsonp'
-      //});
-      $('<div>'+'testtttttttt'+'</div>').appendTo('body');
 
-        $.ajax({
-          url: gasUrl,
-          dataType: 'jsonp',
-          success: function(data){
-            $('body').append(data);
-            
-          },
-          error: function(jqXHR, textStatus, errorThrown){
-            $('body').append(errorThrown);
-          }
+    try{
+
+      $.ajax({
+        url: gasUrl,
+        dataType: 'jsonp'
         });
+      } catch(err){
+        $('<div>'+err+'</div>').appendTo('body');
+      }
+
+
         
         gadgets.window.adjustHeight(100);
           
