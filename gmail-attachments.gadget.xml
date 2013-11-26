@@ -54,8 +54,7 @@
           details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
         }
         details +='</table>';
-        jQuery("a#auth_class").remove();
-        jQuery("a#reload_link").remove();
+        
       } else {
         $('No data').appendTo('body');
       }
