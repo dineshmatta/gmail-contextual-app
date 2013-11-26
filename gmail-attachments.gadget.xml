@@ -83,6 +83,20 @@
           });
 
 
+          function getHtml() {    
+            var params = {};  
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;  
+            gadgets.io.makeRequest(google_app_service_url, response, params);
+          };
+          function response(obj) {  
+            //obj.text contains the text of the page that was requested  
+            var str = obj.text;
+            var html =  str.substr(0,400);  
+            document.getElementById('content_div').innerHTML = html;
+          };
+          gadgets.util.registerOnLoadHandler(getHtml);
+
+
         
         gadgets.window.adjustHeight(100);
           
