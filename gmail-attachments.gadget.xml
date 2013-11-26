@@ -43,7 +43,7 @@
         });
 
         //Callback funtion
-        var google_app_service_url ='https://script.google.com/a/macros/pawanadvertising.com/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec';
+        var google_app_service_url ='https://script.google.com/macros/s/AKfycbzP2A1SlTFxXVy39b5KmvNLFDSTeDveR49od-Wno2VFdcdT9m0/exec';
         
         window.jsonCallback = function(attachmentDetails){
       console.log('jsonCallback table : '+attachmentDetails);
