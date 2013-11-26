@@ -57,7 +57,7 @@
         jQuery("a#auth_class").remove();
         jQuery("a#reload_link").remove();
       }
-      document.getElementById('loading').innerHtml='';
+      //document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
