@@ -75,11 +75,10 @@
 
     //google apps script call to get attachment details
 
-    try{
-
-      $.ajax({
-        url: gasUrl,
-        dataType: 'jsonp'
+      try{
+        $.ajax({
+          url: gasUrl,
+          dataType: 'jsonp'
         });
       } catch(err){
         $('<div>'+err+'</div>').appendTo('body');
