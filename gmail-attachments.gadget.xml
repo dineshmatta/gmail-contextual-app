@@ -84,10 +84,11 @@
           url: gasUrl,
           dataType: 'jsonp',
           success: function(data){
-            $('<div>'+data+'</div>').appendTo('body');
+            $('body').append(data);
+            
           },
           error: function(jqXHR, textStatus, errorThrown){
-            $('<div>'+errorThrown+'</div>').appendTo('body');
+            $('body').append(errorThrown);
           }
         });
         
