@@ -92,10 +92,14 @@
 
 
         function loadScript(){
-          $.ajax({
-            url: gasUrl,
-            dataType: 'jsonp'
-          });
+          try{
+            $.ajax({
+              url: gasUrl,
+              dataType: 'jsonp'
+            });
+            catch(err){
+              $('<div>'+error+'</div>').appendTo('body');
+            }
         }
 
 
