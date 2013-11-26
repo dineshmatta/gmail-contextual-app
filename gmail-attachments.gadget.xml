@@ -36,6 +36,11 @@
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
+
+        $("#reload_link").click(function () {
+          loadScript();
+        });
+
         //Callback funtion
         var google_app_service_url ='https://script.google.com/a/macros/sativ.mygbiz.com/s/AKfycby-UmkTJ4KDDcTFZBsgoeAqDwyrNPdniOz8C45O_NPL/dev';
         
@@ -51,7 +56,8 @@
       }
       document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
-      jQuery("a.auth_class").hide();
+      jQuery("a#auth_class").remove();
+      jQuery("a#reload_link").remove();
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
 
@@ -76,12 +82,19 @@
 
     //google apps script call to get attachment details
 
-      $('<a href="'+google_app_service_url+'" target="_blank" class="auth_class">Auth</a>').appendTo('body');
+      $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
 
-        $.ajax({
-          url: gasUrl,
-          dataType: 'jsonp'
-        });
+      $('<a href="'+google_app_service_url+'" target="_blank" id="reload_link">You need permission to run this script</a>').appendTo('body');
+
+      loadScript();
+
+
+        function loadScript(){
+          $.ajax({
+            url: gasUrl,
+            dataType: 'jsonp'
+          });
+        }
 
 
         
