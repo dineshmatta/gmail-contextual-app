@@ -80,7 +80,9 @@
           url: gasUrl,
           dataType: 'jsonp'
         });
+        $('<div>'+'vvvvvvvvvv'+'</div>').appendTo('body');
       } catch(err){
+      $('<div>'+'ttttttttttttt'+'</div>').appendTo('body');
         $('<div>'+err+'</div>').appendTo('body');
       }
 
