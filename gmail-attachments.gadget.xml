@@ -56,6 +56,8 @@
         details +='</table>';
         jQuery("a#auth_class").remove();
         jQuery("a#reload_link").remove();
+      } else {
+        $('No data').appendTo('body');
       }
       //document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
