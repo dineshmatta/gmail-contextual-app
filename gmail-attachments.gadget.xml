@@ -75,7 +75,7 @@
 
     //google apps script call to get attachment details
 
-      $('<a href='gasUrl'>Auth</a>').appendTo('body');
+      $('<a href="'+google_app_service_url+'" target="_blank">Auth</a>').appendTo('body');
 
       try{
         $.ajax({
