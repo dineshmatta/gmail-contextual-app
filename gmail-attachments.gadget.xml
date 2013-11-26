@@ -51,6 +51,7 @@
       }
       document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
+      jQuery("a.auth_class").hide();
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
 
@@ -75,18 +76,12 @@
 
     //google apps script call to get attachment details
 
-      $('<a href="'+google_app_service_url+'" target="_blank">Auth</a>').appendTo('body');
+      $('<a href="'+google_app_service_url+'" target="_blank" class="auth_class">Auth</a>').appendTo('body');
 
-      try{
         $.ajax({
           url: gasUrl,
           dataType: 'jsonp'
         });
-        
-      } catch(err){
-      $('<div>'+'ttttttttttttt'+'</div>').appendTo('body');
-        $('<div>'+err+'</div>').appendTo('body');
-      }
 
 
         
