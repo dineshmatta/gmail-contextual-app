@@ -75,13 +75,12 @@
 
     //google apps script call to get attachment details
 
+      $('<div>Authorize by clicking to this URL'+<a href='gasUrl'>Auth<a>+'</div>').appendTo('body');
+
       try{
         $.ajax({
           url: gasUrl,
-          dataType: 'jsonp',
-          success: function(data){
-            $('<div>'+'nnnnnnnnnnnnnn'+'</div>').appendTo('body');
-          }
+          dataType: 'jsonp'
         });
         
       } catch(err){
