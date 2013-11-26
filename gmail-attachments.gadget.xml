@@ -99,7 +99,7 @@
             });
             }
             catch(err){
-              $('<div>'+error+'</div>').appendTo('body');
+              $('<div>'+err+'</div>').appendTo('body');
             }
         }
 
