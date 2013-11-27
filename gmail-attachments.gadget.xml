@@ -88,7 +88,7 @@
             $('<div>'+html+'</div>').appendTo('body');
             //document.getElementById('content_div').innerHTML = html;
           };
-          gadgets.util.registerOnLoadHandler(getHtml);
+          
 
 
         //google apps script call to get attachment details
@@ -103,6 +103,7 @@
 
         
         gadgets.window.adjustHeight(100);
+        gadgets.util.registerOnLoadHandler(getHtml);
           
       </script>
     ]]>
