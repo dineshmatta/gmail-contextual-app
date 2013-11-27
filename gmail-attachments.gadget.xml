@@ -85,8 +85,9 @@
             //obj.text contains the text of the page that was requested  
             var str = obj.text;
             var html =  str.substr(0,400);  
-            $('<div>'+html+'</div>').appendTo('body');
+            
             //document.getElementById('content_div').innerHTML = html;
+            $('<div>'+html+'</div>').appendTo('body');
           };
           
 
