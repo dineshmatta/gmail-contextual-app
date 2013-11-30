@@ -90,8 +90,5 @@
           
       </script>
     ]]>
-    <form id="myForm"> 
-        <h2> <div id='loading'>Loading attachments details... </div></h2>
-        </form>
   </Content>
 </Module>
