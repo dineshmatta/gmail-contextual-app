@@ -45,7 +45,7 @@
       if(attachmentDetails!=null && attachmentDetails.length>0){
         details = '<table border="1"><tr><th>Attachement Title</th><th>Attachement Size(in bytes)</th><th>Attachement View</th><th>Message HTML BODY</th><th>Message PLAIN TEXT BODY</th><th>Message FROM</th>
         <th>Message TO</th><th>Message CC</th><th>Message BCC</th><th>Message Date Received</th>
-        <th>Message SUBJECT/th></tr>';
+        <th>Message SUBJECT</th></tr>';
         for (var i = 0; i < attachmentDetails.length; i++) {
           details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a>'+'</td>
         <td>'+ attachmentDetails[i].mailhtmlbody +'</td><td>'+ attachmentDetails[i].mailplainbody +'</td>
