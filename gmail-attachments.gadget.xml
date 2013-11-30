@@ -74,38 +74,17 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
-        $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">You need permission to run this script</a>').appendTo('body');
+        $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">Click this link to get access to this script(After Authorization you need to reload gmail message to see the actual data)</a>').appendTo('body');
 
-          function getHtml() {    
-            var params = {};  
-            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;  
-            gadgets.io.makeRequest(gasUrl, response, params);
-          };
           
-          function response(obj) {  
-            //obj.text contains the text of the page that was requested  
-            var str = obj.text;
-            var html =  str.substr(0,400);  
-            
-            //document.getElementById('content_div').innerHTML = html;
-            $('<div>'+html+'</div>').appendTo('body');
-          };
-          
-
-
         //google apps script call to get attachment details
         $.ajax({
           url: gasUrl,
           dataType: 'jsonp'
           });
 
-
-          
-
-
         
         gadgets.window.adjustHeight(100);
-        gadgets.util.registerOnLoadHandler(getHtml);
           
       </script>
     ]]>
