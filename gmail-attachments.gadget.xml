@@ -47,7 +47,7 @@
         <th>Message TO</th><th>Message CC</th><th>Message BCC</th><th>Message Date Received</th>
         <th>Message SUBJECT/th></tr>';
         for (var i = 0; i < attachmentDetails.length; i++) {
-          details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td>
+          details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a>'+'</td>
         <td>'+ attachmentDetails[i].mailhtmlbody +'</td><td>'+ attachmentDetails[i].mailplainbody +'</td>
         <td>'+ attachmentDetails[i].mailfrom +'</td><td>'+ attachmentDetails[i].mailto +'</td>
         <td>'+ attachmentDetails[i].mailcc +'</td><td>'+ attachmentDetails[i].mailbcc +'</td>
