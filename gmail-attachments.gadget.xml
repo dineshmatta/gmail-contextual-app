@@ -49,7 +49,7 @@
 
         for (var i = 0; i < attachmentDetails.length; i++) {
           details += '<tr><td>'+  attachmentDetails[i].mailhtmlbody +'</td><td>'+ attachmentDetails[i].mailplainbody +
-          '</td><td>' + ttachmentDetails[i].mailfrom + '</td><td>' + attachmentDetails[i].mailto + '</td><td>' +
+          '</td><td>' + attachmentDetails[i].mailfrom + '</td><td>' + attachmentDetails[i].mailto + '</td><td>' +
           attachmentDetails[i].mailcc + '</td><td>' + attachmentDetails[i].mailbcc + '</td><td>' + 
           attachmentDetails[i].maildatereceived + '</td><td>' + attachmentDetails[i].mailsubject +
           '</td><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
