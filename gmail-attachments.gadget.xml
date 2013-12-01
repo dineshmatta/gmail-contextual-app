@@ -84,7 +84,7 @@
       dataType: 'jsonp'
       });
         
-        gadgets.window.adjustHeight(100);
+        gadgets.window.adjustHeight(500);
           
       </script>
     ]]>
