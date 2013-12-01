@@ -77,7 +77,6 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
-        jQuery("a#loading").hide();
 
         $('<a href="'+google_app_service_url+'" target="_blank" id="auth_class">Click this link to get access to this script(After Authorization you need to reload gmail message to see the actual data)</a>').appendTo('body');
 
