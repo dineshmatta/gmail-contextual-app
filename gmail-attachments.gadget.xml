@@ -37,20 +37,17 @@
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
         //Callback funtion
-        var google_app_service_url ='https://script.google.com/macros/s/AKfycbxJbqTDC3IO21DhsFIcHVV7k1MEnF4eYhTO274gLFFvWXJ-mug/exec';
+        var google_app_service_url ='https://script.google.com/macros/s/AKfycbwnazKAIRI8UJYo-Bg2QWUUnQGnoMO5nm0Gge2hIew/dev';
         
         window.jsonCallback = function(attachmentDetails){
       console.log('jsonCallback table : '+attachmentDetails);
       var details ='<h2>No attacments found!!<h2>';
-      if(attachmentDetails!=null && attachmentDetails.length>0){      
+      if(attachmentDetails!=null && attachmentDetails.length>0){
         details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
-
         for (var i = 0; i < attachmentDetails.length; i++) {
           details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
-          
         }
         details +='</table>';
-        jQuery("a#auth_class").remove();
       }
       document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
@@ -76,20 +73,18 @@
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
 
-
-       
-
-          
-        //google apps script call to get attachment details
-        $.ajax({
-          url: gasUrl,
-          dataType: 'jsonp'
-          });
-
+    //google apps script call to get attachment details
+    $.ajax({
+      url: gasUrl,
+      dataType: 'jsonp'
+      });
         
         gadgets.window.adjustHeight(100);
           
       </script>
     ]]>
+    <form id="myForm"> 
+        <h2> <div id='loading'></div>Loading attachments details... </h2>
+        </form>
   </Content>
 </Module>
