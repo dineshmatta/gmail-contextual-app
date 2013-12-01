@@ -50,7 +50,7 @@
         details +='</table>';
       }
       console.log('Html table : '+details);
-      jQuery('<div>'+details+'</div>').appendTo('body');
+      jQuery('body').html('<div>'+details+'</div>');
     }
 
         matches = google.contentmatch.getContentMatches();
