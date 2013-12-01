@@ -49,7 +49,6 @@
         }
         details +='</table>';
       }
-      document.getElementById('loading').innerHtml='';
       console.log('Html table : '+details);
       jQuery('<div>'+details+'</div>').appendTo('body');
     }
@@ -72,6 +71,8 @@
         console.log('JSON response : ' +JSON.stringify(matches));
         var gasUrl = google_app_service_url+'?messageId='+messageid+'&callback=jsonCallback';
         console.log('URL to get attachments : ' +gasUrl);
+
+        $('<a href="'+gasUrl+'" target="_blank" id="auth_class">Click this link to get access to this script(After Authorization you need to reload gmail message to see the actual data)</a>').appendTo('body');
 
     //google apps script call to get attachment details
     $.ajax({
