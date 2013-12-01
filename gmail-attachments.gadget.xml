@@ -43,11 +43,10 @@
       console.log('jsonCallback table : '+attachmentDetails);
       var details ='<h2>No attacments found!!<h2>';
       if(attachmentDetails!=null && attachmentDetails.length>0){      
-        details = '<table border="1"><tr><th>Message HTML BODY</th><th>Message PLAIN TEXT BODY</th><th>Message FROM</th><th>Message TO</th><th>Message CC</th><th>Message BCC</th><th>Message Date Received</th><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
+        details = '<table border="1"><tr><th>Title</th><th>Size(in bytes)</th><th>View</th></tr>';
 
         for (var i = 0; i < attachmentDetails.length; i++) {
-          details += '<tr><td>'  +attachmentDetails[i].mailhtmlbody +'</td><td>'  + attachmentDetails[i].mailplainbody +
-          '</td><td>' + attachmentDetails[i].mailfrom + '</td><td>'   +attachmentDetails[i].mailto +'</td><td>'  + attachmentDetails[i].mailcc + '</td><td>' + attachmentDetails[i].mailbcc +    '</td><td>' + attachmentDetails[i].maildatereceived +   '</td><td>'    +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
+          details += '<tr><td>' +attachmentDetails[i].title +'</td><td>'+ attachmentDetails[i].size +'</td><td>'+ '<a href="'+attachmentDetails[i].link+'" target="_blank">View</a></td></tr>';
           
         }
         details +='</table>';
