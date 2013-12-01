@@ -37,7 +37,7 @@
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
         //Callback funtion
-        var google_app_service_url ='https://script.google.com/macros/s/AKfycbwnazKAIRI8UJYo-Bg2QWUUnQGnoMO5nm0Gge2hIew/dev';
+        var google_app_service_url ='https://script.google.com/a/macros/pawanadvertising.com/s/AKfycbwRcKI7RcDue3qwiiqdv0oDqQr8Lhegjv1zoK6o3dI/dev';
         
         window.jsonCallback = function(attachmentDetails){
       console.log('jsonCallback table : '+attachmentDetails);
